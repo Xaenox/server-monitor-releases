@@ -27,8 +27,9 @@ Shared options:
   -h, --help               Show this help.
 
 Examples:
-  curl -fsSL https://raw.githubusercontent.com/Xaenox/server-monitor-releases/main/install.sh | sudo bash -s -- dashboard --tailscale-serve
-  curl -fsSL https://raw.githubusercontent.com/Xaenox/server-monitor-releases/main/install.sh | sudo bash -s -- agent --dashboard-url https://server-monitor.example.ts.net
+  curl -fsSLo /tmp/server-monitor-install.sh https://github.com/Xaenox/server-monitor-releases/releases/latest/download/install.sh
+  sudo bash /tmp/server-monitor-install.sh dashboard --tailscale-serve
+  sudo bash /tmp/server-monitor-install.sh agent --dashboard-url https://server-monitor.example.ts.net
 EOF
 }
 
