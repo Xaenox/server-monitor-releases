@@ -39,6 +39,27 @@ require_root() {
     fi
 }
 
+read_tty() {
+    local prompt="$1"
+    local var_name="$2"
+    if [ ! -r /dev/tty ]; then
+        echo "ERROR: interactive input requires a TTY. Set ${var_name} in the environment instead." >&2
+        exit 1
+    fi
+    read -rp "$prompt" "$var_name" </dev/tty
+}
+
+read_secret_tty() {
+    local prompt="$1"
+    local var_name="$2"
+    if [ ! -r /dev/tty ]; then
+        echo "ERROR: secret input requires a TTY. Set ${var_name} in the environment instead." >&2
+        exit 1
+    fi
+    read -rsp "$prompt" "$var_name" </dev/tty
+    echo >/dev/tty
+}
+
 download_url() {
     local asset="$1"
     if [ "$VERSION" = "latest" ]; then
@@ -114,8 +135,7 @@ install_dashboard() {
     fi
 
     if [ -z "${ADMIN_PASSWORD_HASH:-}" ] && [ -z "${ADMIN_PASSWORD:-}" ]; then
-        read -rsp "Admin password: " ADMIN_PASSWORD
-        echo
+        read_secret_tty "Admin password: " ADMIN_PASSWORD
         export ADMIN_PASSWORD
     fi
 
@@ -162,11 +182,10 @@ install_agent() {
     done
 
     if [ -z "$dashboard_url" ]; then
-        read -rp "Dashboard URL: " dashboard_url
+        read_tty "Dashboard URL: " dashboard_url
     fi
     if [ -z "${AGENT_TOKEN:-}" ]; then
-        read -rsp "Agent token: " AGENT_TOKEN
-        echo
+        read_secret_tty "Agent token: " AGENT_TOKEN
         export AGENT_TOKEN
     fi
 
