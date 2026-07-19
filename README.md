@@ -56,6 +56,12 @@ sudo bash /tmp/server-monitor-install.sh agent \
 
 The installer prompts for the agent token interactively so the token is not written to shell history.
 
+Docker containers are monitored automatically — including rootless Docker daemons run by other users (a common CI-runner setup). The installer detects every running daemon and wires it up; re-run the same install command later to pick up daemons added since, or set `SKIP_ROOTLESS_DOCKER=1` to opt out. To expose a rootless daemon manually:
+
+```bash
+sudo server-monitor-expose-rootless-docker <linux-user> [endpoint-name]
+```
+
 4. Verify:
 
 ```bash
