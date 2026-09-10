@@ -1,8 +1,17 @@
-# server-monitor releases
+# PulseNode releases
 
-Public release assets for the private `server-monitor` source repository.
+Install script and release binaries for [PulseNode](https://pulsenode.space), a
+monitoring service for small fleets of Linux VPSes.
 
-This repository intentionally contains no source code. Use the GitHub Releases assets for production installs.
+Two things live here. The **agent** is what every monitored VPS runs: a single
+outbound-only Go binary that pushes CPU, RAM, disk, network, Docker and open-port
+metrics and never listens on a port. The **dashboard** is what receives them: use
+the hosted service at [pulsenode.space](https://pulsenode.space), or install it here
+and run it yourself.
+
+The binaries are named `server-monitor` and `server-monitor-agent` after the source
+repository, which is private. This repository intentionally contains no source code:
+use the GitHub Releases assets for production installs.
 
 ## Quick Install
 
